@@ -1,0 +1,46 @@
+{
+  "condition": "low",
+  "algorithm": "3D constant-K Wiener",
+  "best_wiener_k": 0.01,
+  "selected_method": "wiener",
+  "selected_k": 0.01,
+  "selection_metric": "validation_ssim",
+  "calibration": {
+    "method": "reference_assisted_affine",
+    "slope": 0.33228514210218973,
+    "intercept": -0.01876480548342691
+  },
+  "input_validation": {
+    "mse": 0.005728166985673565,
+    "psnr_db": 22.419843301017575,
+    "ssim": 0.4957806916285348
+  },
+  "input_test": {
+    "mse": 0.0054881633917693625,
+    "psnr_db": 22.60572967736737,
+    "ssim": 0.5998632078444537
+  },
+  "best_wiener_test": {
+    "mse": 0.006097993920418759,
+    "psnr_db": 22.148130127447757,
+    "ssim": 0.717196393331551
+  },
+  "selected_output_test": {
+    "mse": 0.006097993920418759,
+    "psnr_db": 22.148130127447757,
+    "ssim": 0.717196393331551
+  },
+  "psf_peak_offset": [
+    0,
+    0,
+    0
+  ],
+  "psf_retained_energy": 1.0000000035097756,
+  "limitations": [
+    "Reference-assisted calibration",
+    "Single specimen spatial holdouts",
+    "Circular FFT boundary condition",
+    "PSF centering assumed",
+    "Discrete K grid search"
+  ]
+}
