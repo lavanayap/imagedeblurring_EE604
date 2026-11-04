@@ -1,0 +1,57 @@
+{
+  "project": "Fluorescence Microscopy Deconvolution",
+  "dataset": "EPFL Synthetic Hollow Bars",
+  "dataset_url": "https://bigwww.epfl.ch/deconvolution/bars/",
+  "volume_shape_zyx": [
+    128,
+    256,
+    256
+  ],
+  "k_values": [
+    1e-05,
+    3e-05,
+    0.0001,
+    0.0003,
+    0.001,
+    0.003,
+    0.01,
+    0.03,
+    0.1
+  ],
+  "psf_retained_energy": 1.0000000035097756,
+  "psf_peak_offset": [
+    0,
+    0,
+    0
+  ],
+  "regions_y": {
+    "calibration": [
+      60,
+      102
+    ],
+    "validation": [
+      102,
+      144
+    ],
+    "test": [
+      144,
+      187
+    ]
+  },
+  "evaluation": {
+    "type": "internal_spatial_holdout",
+    "metric_data_range": 1.0,
+    "metric_clipping": [
+      0,
+      1
+    ],
+    "selection": "validation_ssim",
+    "ssim_dimensions": 3,
+    "calibration": "reference_assisted"
+  },
+  "fft_boundary": "periodic",
+  "python": "3.12.3",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "platform": "Windows-11-10.0.26200-SP0"
+}
