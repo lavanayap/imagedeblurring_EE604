@@ -1,0 +1,6 @@
+numpy
+scipy
+matplotlib
+tifffile
+scikit-image
+pytest
