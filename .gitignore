@@ -4,4 +4,9 @@ __pycache__/
 .pytest_cache/
 data/raw/*
 !data/raw/.gitkeep
-results/
+results/*
+!results/rl_low_snr_best_120.tif
+!results/rl_high_snr_best_120.tif
+!results/low_snr_visual_comparison.png
+!results/high_snr_visual_comparison.png
+!results/rl_metrics.csv
