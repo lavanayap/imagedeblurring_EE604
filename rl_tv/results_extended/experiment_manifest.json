@@ -1,0 +1,142 @@
+{
+  "project": "Fluorescence Microscopy Deconvolution",
+  "algorithm": "3D RL / RL-TV (Dey et al. 2006)",
+  "dataset": "EPFL Synthetic Hollow Bars",
+  "volume_shape_zyx": [
+    128,
+    256,
+    256
+  ],
+  "lambdas": [
+    0.0,
+    0.0001
+  ],
+  "iteration_checkpoints": [
+    100,
+    200,
+    300
+  ],
+  "eps": 1e-08,
+  "eps_tv": 0.001,
+  "denominator_clip": [
+    0.5,
+    2.0
+  ],
+  "initial_estimate": "constant = mean(input)",
+  "regions_y": {
+    "calibration": [
+      60,
+      102
+    ],
+    "validation": [
+      102,
+      144
+    ],
+    "test": [
+      144,
+      187
+    ]
+  },
+  "evaluation": {
+    "type": "internal_spatial_holdout",
+    "selection": "validation_ssim (tie: validation_psnr)",
+    "metric_data_range": 1.0,
+    "metric_clipping": [
+      0,
+      1
+    ],
+    "ssim_dimensions": 3,
+    "calibration": "reference_assisted (shared with Wiener)"
+  },
+  "fft_boundary": "periodic",
+  "conditions": {
+    "low": {
+      "calibration": {
+        "slope": 0.33228514210218973,
+        "intercept": -0.01876480548342691
+      },
+      "rl": {
+        "lambda": 0.0,
+        "iterations": 300,
+        "validation": {
+          "mse": 0.004522126218883959,
+          "psnr_db": 23.446573202289613,
+          "ssim": 0.9079763488864737
+        },
+        "test": {
+          "mse": 0.004004958027141629,
+          "psnr_db": 23.974020312185303,
+          "ssim": 0.9344323680890845
+        }
+      },
+      "rltv": {
+        "lambda": 0.0001,
+        "iterations": 300,
+        "validation": {
+          "mse": 0.004526153479937047,
+          "psnr_db": 23.44270723281287,
+          "ssim": 0.9080993875800957
+        },
+        "test": {
+          "mse": 0.004002100185630409,
+          "psnr_db": 23.977120438115307,
+          "ssim": 0.9345696451544083
+        }
+      },
+      "input_validation": {
+        "mse": 0.005728166985673565,
+        "psnr_db": 22.419843301017575,
+        "ssim": 0.4957806916285348
+      },
+      "input_test": {
+        "mse": 0.0054881633917693625,
+        "psnr_db": 22.60572967736737,
+        "ssim": 0.5998632078444537
+      }
+    },
+    "high": {
+      "calibration": {
+        "slope": 0.21347198508296833,
+        "intercept": -0.022670130418326898
+      },
+      "rl": {
+        "lambda": 0.0,
+        "iterations": 300,
+        "validation": {
+          "mse": 0.004943993341039195,
+          "psnr_db": 23.05922122771328,
+          "ssim": 0.8999312672257119
+        },
+        "test": {
+          "mse": 0.004461039512603976,
+          "psnr_db": 23.50563930387947,
+          "ssim": 0.9537021547083204
+        }
+      },
+      "rltv": {
+        "lambda": 0.0001,
+        "iterations": 300,
+        "validation": {
+          "mse": 0.004965969366705803,
+          "psnr_db": 23.039959637785824,
+          "ssim": 0.8997168192689512
+        },
+        "test": {
+          "mse": 0.004472549652220963,
+          "psnr_db": 23.494448294123025,
+          "ssim": 0.9536381402753358
+        }
+      },
+      "input_validation": {
+        "mse": 0.005596035911006887,
+        "psnr_db": 22.521195071086346,
+        "ssim": 0.5504952429399896
+      },
+      "input_test": {
+        "mse": 0.005321196148085025,
+        "psnr_db": 22.739907316058705,
+        "ssim": 0.6771139159146201
+      }
+    }
+  }
+}
