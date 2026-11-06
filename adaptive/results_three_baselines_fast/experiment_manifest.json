@@ -1,0 +1,126 @@
+{
+  "project": "Fluorescence Microscopy Deconvolution",
+  "algorithm": "Noise- and PSF-uncertainty-aware adaptive RL-TV",
+  "volume_shape_zyx": [
+    32,
+    128,
+    128
+  ],
+  "regions_y": {
+    "calibration": [
+      16,
+      45
+    ],
+    "validation": [
+      45,
+      74
+    ],
+    "test": [
+      74,
+      103
+    ]
+  },
+  "controller": {
+    "scales": [
+      0.8,
+      0.9,
+      1.0
+    ],
+    "lambdas": [
+      0.003,
+      0.01,
+      0.03
+    ],
+    "n_max": 60,
+    "tau": 1.0,
+    "plateau_tol": 0.001,
+    "plateau_min_iter": 30,
+    "reference_used_by_controller": false
+  },
+  "fixed_baselines": {
+    "wiener_K": [
+      1e-05,
+      3e-05,
+      0.0001,
+      0.0003,
+      0.001,
+      0.003,
+      0.01,
+      0.03,
+      0.1
+    ],
+    "inverse_thresholds": [
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "rl_checkpoints": [
+      5,
+      10,
+      20,
+      30,
+      50,
+      60
+    ],
+    "rltv_lambdas": [
+      0.001,
+      0.01,
+      0.1
+    ],
+    "default_rltv": "lam=0.01, 50 it"
+  },
+  "evaluation": {
+    "type": "internal_spatial_holdout",
+    "calibration": "reference_assisted (shared)",
+    "metric_range": 1.0,
+    "ssim_dimensions": 3
+  },
+  "psf_mismatch_factors": [
+    1.0
+  ],
+  "runs": {
+    "mismatch_1/low": {
+      "calibration": {
+        "slope": 0.6623254342187916,
+        "intercept": -0.08328389171687463
+      },
+      "noise_model": {
+        "noise_a": 0.00516541270372104,
+        "noise_b": 0.0005804593486024545,
+        "noise_sigma": 0.02735749034138238
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.0,
+        "iterations": 60,
+        "reached": false,
+        "chi2": 4.946333489870784,
+        "whiteness": 0.6585049918899711
+      },
+      "total_adaptive_seconds": 31.013792500132695
+    },
+    "mismatch_1/high": {
+      "calibration": {
+        "slope": 0.5248307057840251,
+        "intercept": -0.13481635449004856
+      },
+      "noise_model": {
+        "noise_a": 0.00042146102848641606,
+        "noise_b": 4.1371200182062095e-06,
+        "noise_sigma": 0.0031670959485881373
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.003,
+        "iterations": 60,
+        "reached": false,
+        "chi2": 80.8567317573835,
+        "whiteness": 0.8980000352003003
+      },
+      "total_adaptive_seconds": 32.634506500093266
+    }
+  }
+}
