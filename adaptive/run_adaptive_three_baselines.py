@@ -21,7 +21,6 @@ Compares, on identical data and the identical test region:
 
 PSF-mismatch experiment (--mismatch 0.8 1.0 1.2): the PSF given to EVERY method
 is the true PSF rescaled by that factor, while the data stay the same.
-
 Run from the project root:
     python adaptive/adaptive_core.py --selftest        (or just run the file)
     python adaptive/run_adaptive.py --fast             # quick check
@@ -214,8 +213,7 @@ def plot_mismatch(summary_rows, out_dir):
     mism = sorted({r["psf_mismatch"] for r in summary_rows})
     if len(mism) < 2:
         return
-    methods = ["input", "wiener_oracle", "rltv_oracle",
-               "rltv_default", "adaptive_full"]
+    methods = ["Our Adaptive", "RL-TV", "Wiener", "Inverse"]
     for cond in ("low", "high"):
         fig, ax = plt.subplots(figsize=(7, 4.5))
         for m in methods:
@@ -292,34 +290,26 @@ def run(args):
                       f"SSIM={tst['ssim']:.5f} | val SSIM={val['ssim']:.5f} "
                       f"| {params}", flush=True)
 
-            record("input", "none", cal, "calibrated input", 0, 0.0)
+            # Input is used for visualization, not ranked.
 
             # ---------- fixed baselines ----------
             if not args.skip_baselines:
                 w = best_wiener(cal, psf, reference, regions)
-                record("wiener_oracle", "oracle_tuned", w["volume"],
+                record("Wiener", "oracle_tuned", w["volume"],
                        f"K={w['K']:g}", 0, w["runtime"])
                 volumes_for_plots["Wiener"] = w["volume"]
                 inv = best_inverse(cal, psf, reference, regions)
                 if inv is not None:
-                    record("inverse_oracle", "oracle_tuned", inv["volume"],
+                    record("Inverse", "oracle_tuned", inv["volume"],
                            f"thr={inv['threshold']:g}", 0, inv["runtime"])
+                volumes_for_plots["Inverse"] = inv["volume"]
                 noise = estimate_noise_model(cal)
                 best, default = fixed_rl_family(
                     cal, H, reference, regions, ORACLE_LAMBDAS, CHECKPOINTS,
                     max(CHECKPOINTS), noise)
-                b = best["rltv"]
-                record(
-                    "rltv_oracle", "oracle_tuned",
-                    b["volume"],
-                    f"lam={b['lam']:g}",
-                    b["iters"], b["runtime"]
-                )
-                volumes_for_plots["RL-TV (tuned)"] = b["volume"]
-
                 d = default["rltv"]
                 record(
-                    "rltv_default", "fixed_default",
+                    "RL-TV", "fixed_default",
                     d["volume"],
                     f"lam={d['lam']:g}",
                     d["iters"], d["runtime"]
@@ -344,10 +334,10 @@ def run(args):
             total_t = time.perf_counter() - t0
 
             for name, (vol, info) in variants.items():
-                if name == "stop_only_RL":
+                if name != "adaptive_full":
                     continue
                 fam = "proposed" if name == "adaptive_full" else "ablation"
-                record(name, fam, vol,
+                record("Our Adaptive", fam, vol,
                        f"s={info['scale']:g} lam={info['lambda']:g} "
                        f"{info['stopping']}", info["iterations"], total_t)
             full_vol, full_info = variants["adaptive_full"]
@@ -408,7 +398,7 @@ def run(args):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--data-dir", default="data/raw")
-    p.add_argument("--output-dir", default="adaptive/results_final")
+    p.add_argument("--output-dir", default="adaptive/results_four_methods")
     # same default crop as wiener_final.py so numbers are comparable
     p.add_argument("--z", type=int, default=64)
     p.add_argument("--y", type=int, default=192)

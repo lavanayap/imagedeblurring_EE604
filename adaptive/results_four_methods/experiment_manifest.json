@@ -1,0 +1,213 @@
+{
+  "project": "Fluorescence Microscopy Deconvolution",
+  "algorithm": "Noise- and PSF-uncertainty-aware adaptive RL-TV",
+  "volume_shape_zyx": [
+    64,
+    192,
+    192
+  ],
+  "regions_y": {
+    "calibration": [
+      28,
+      70
+    ],
+    "validation": [
+      70,
+      112
+    ],
+    "test": [
+      112,
+      155
+    ]
+  },
+  "controller": {
+    "scales": [
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "lambdas": [
+      0.001,
+      0.003,
+      0.01,
+      0.03,
+      0.1
+    ],
+    "n_max": 200,
+    "tau": 1.0,
+    "plateau_tol": 0.001,
+    "plateau_min_iter": 50,
+    "reference_used_by_controller": false
+  },
+  "fixed_baselines": {
+    "wiener_K": [
+      1e-05,
+      3e-05,
+      0.0001,
+      0.0003,
+      0.001,
+      0.003,
+      0.01,
+      0.03,
+      0.1
+    ],
+    "inverse_thresholds": [
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "rl_checkpoints": [
+      5,
+      10,
+      20,
+      30,
+      50,
+      100,
+      150,
+      200
+    ],
+    "rltv_lambdas": [
+      0.001,
+      0.01,
+      0.03
+    ],
+    "default_rltv": "lam=0.01, 50 it"
+  },
+  "evaluation": {
+    "type": "internal_spatial_holdout",
+    "calibration": "reference_assisted (shared)",
+    "metric_range": 1.0,
+    "ssim_dimensions": 3
+  },
+  "psf_mismatch_factors": [
+    0.8,
+    1.0,
+    1.2
+  ],
+  "runs": {
+    "mismatch_0.8/low": {
+      "calibration": {
+        "slope": 0.5844334360308092,
+        "intercept": -0.03977283786238039
+      },
+      "noise_model": {
+        "noise_a": 0.003864218122617026,
+        "noise_b": 0.0004387720354618128,
+        "noise_sigma": 0.023501587996849628
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.001,
+        "iterations": 82,
+        "reached": false,
+        "chi2": 3.119980165419224,
+        "whiteness": 0.6011444525034672
+      },
+      "total_adaptive_seconds": 239.07349179987796
+    },
+    "mismatch_0.8/high": {
+      "calibration": {
+        "slope": 0.3652571237350276,
+        "intercept": -0.04863085316498899
+      },
+      "noise_model": {
+        "noise_a": 0.00020468844419759702,
+        "noise_b": 2.1661930131268824e-07,
+        "noise_sigma": 0.0012959506018528147
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.003,
+        "iterations": 62,
+        "reached": false,
+        "chi2": 67.1372545252329,
+        "whiteness": 0.9230535751987808
+      },
+      "total_adaptive_seconds": 196.51199899986386
+    },
+    "mismatch_1/low": {
+      "calibration": {
+        "slope": 0.5844334360308092,
+        "intercept": -0.03977283786238039
+      },
+      "noise_model": {
+        "noise_a": 0.003864218122617026,
+        "noise_b": 0.0004387720354618128,
+        "noise_sigma": 0.023501587996849628
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.001,
+        "iterations": 93,
+        "reached": false,
+        "chi2": 4.959503341864534,
+        "whiteness": 0.7107376103888465
+      },
+      "total_adaptive_seconds": 264.980339899892
+    },
+    "mismatch_1/high": {
+      "calibration": {
+        "slope": 0.3652571237350276,
+        "intercept": -0.04863085316498899
+      },
+      "noise_model": {
+        "noise_a": 0.00020468844419759702,
+        "noise_b": 2.1661930131268824e-07,
+        "noise_sigma": 0.0012959506018528147
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.003,
+        "iterations": 72,
+        "reached": false,
+        "chi2": 113.25856041880247,
+        "whiteness": 0.9459064649303819
+      },
+      "total_adaptive_seconds": 222.74143439996988
+    },
+    "mismatch_1.2/low": {
+      "calibration": {
+        "slope": 0.5844334360308092,
+        "intercept": -0.03977283786238039
+      },
+      "noise_model": {
+        "noise_a": 0.003864218122617026,
+        "noise_b": 0.0004387720354618128,
+        "noise_sigma": 0.023501587996849628
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.001,
+        "iterations": 95,
+        "reached": false,
+        "chi2": 4.9009960451170915,
+        "whiteness": 0.7056310966818717
+      },
+      "total_adaptive_seconds": 346.5943050000351
+    },
+    "mismatch_1.2/high": {
+      "calibration": {
+        "slope": 0.3652571237350276,
+        "intercept": -0.04863085316498899
+      },
+      "noise_model": {
+        "noise_a": 0.00020468844419759702,
+        "noise_b": 2.1661930131268824e-07,
+        "noise_sigma": 0.0012959506018528147
+      },
+      "selected": {
+        "scale": 1.0,
+        "lambda": 0.003,
+        "iterations": 74,
+        "reached": false,
+        "chi2": 111.76398884441012,
+        "whiteness": 0.9444676332854675
+      },
+      "total_adaptive_seconds": 227.069419400068
+    }
+  }
+}

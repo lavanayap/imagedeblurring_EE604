@@ -1,7 +1,12 @@
 @'
 *.tif
 *.tiff
+*.bak
 __pycache__/
 *.pyc
-*.bak
-'@ | Set-Content -Path adaptive/.gitignore -Encoding UTF8
+results_final/
+results_three_baselines/
+results_four_methods_fast/
+results_restored_check/
+results_phase1_fast/
+'@ | Set-Content adaptive/.gitignore
