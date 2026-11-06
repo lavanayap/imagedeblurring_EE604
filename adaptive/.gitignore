@@ -1,0 +1,7 @@
+@'
+*.tif
+*.tiff
+__pycache__/
+*.pyc
+*.bak
+'@ | Set-Content -Path adaptive/.gitignore -Encoding UTF8
